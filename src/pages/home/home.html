@@ -1,20 +1,34 @@
-<ion-content padding>
+<ion-content>
   <div class="title">
-      <h1 *ngIf="selectedRecord">Day {{selectedRecord.dayNum}}</h1>
+    <h1 *ngIf="selectedRecord">Day {{selectedRecord.dayNum}}</h1>
   </div>
 
-  <ion-card>
-    <img src="assets/imgs/picture-placeholder.svg" class="img-placeholder">
+  <ion-grid>
+    <ion-row align-items-center>
+      <ion-col col-1>
+        <ion-icon *ngIf="!isOnStartDay()" on-click="navDayBack()" name="arrow-back"></ion-icon>
+      </ion-col>
+      <ion-col col-10>
+        <ion-card>
+          <img src="assets/imgs/picture-placeholder.svg" class="img-placeholder">
 
-    <ion-card-content>
-      <ion-grid>
-        <ion-row >
-          <ion-col align-items-center>
-              <ion-input class="weight-input" type="text" placeholder="Weight" type="number"></ion-input>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-       
-    </ion-card-content> 
- </ion-card>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col align-items-center>
+                  <ion-input class="weight-input" type="text" placeholder="Weight" type="number"></ion-input>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-icon *ngIf="!isOnLatestDay()" on-click="navDayForward()" name="arrow-forward"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
 </ion-content>
