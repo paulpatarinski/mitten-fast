@@ -1,3 +1,20 @@
 <ion-content padding>
- <h1>Day 1</h1>
+  <div class="title">
+      <h1 *ngIf="selectedRecord">Day {{selectedRecord.dayNum}}</h1>
+  </div>
+
+  <ion-card>
+    <img src="assets/imgs/picture-placeholder.svg" class="img-placeholder">
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row >
+          <ion-col align-items-center>
+              <ion-input class="weight-input" type="text" placeholder="Weight" type="number"></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+       
+    </ion-card-content> 
+ </ion-card>
 </ion-content>

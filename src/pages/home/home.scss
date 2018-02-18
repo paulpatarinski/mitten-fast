@@ -1,3 +1,19 @@
 page-home {
+    .title {
+        margin-bottom : 20px;
+    }
 
+    .img-placeholder {
+        padding : 10px;
+    }
+
+    .weight-input {
+        font-size: 30px;
+
+        input {
+            margin : 0;
+            width: 100%;
+            text-align: center;
+        }
+    }
 }
