@@ -9,11 +9,12 @@ export class WelcomePage {
 
   constructor(public navCtrl: NavController, private storage: Storage) { }
 
+  selectedStartDate: Date = new Date();
+
   startClicked() {
-    const startDate = moment(new Date()).subtract(1, 'day').toDate();
     this
       .storage
-      .set('startDate', startDate)
+      .set('startDate', moment(this.selectedStartDate).toDate())
       .then(() => {
         this
           .navCtrl
