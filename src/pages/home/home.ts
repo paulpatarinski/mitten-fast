@@ -64,7 +64,8 @@ export class HomePage {
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,
         saveToPhotoAlbum: true,
-        correctOrientation: true
+        correctOrientation: true,
+        allowEdit: true
       };
 
       this.camera.getPicture(options).then((imageData) => {
