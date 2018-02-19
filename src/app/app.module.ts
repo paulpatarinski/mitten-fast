@@ -30,9 +30,9 @@ import { Camera } from '@ionic-native/camera';
     WelcomePage
   ],
   providers: [
-    Camera,
     StatusBar,
     SplashScreen,
+    Camera,
     WeightRecordService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
