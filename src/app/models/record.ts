@@ -1,5 +1,6 @@
-interface WeightRecord {
- date : Date;
- dayNum : number;
- img : string;   
+export interface WeightRecord {
+    dateFormatted: string;
+    createdDate: Date,
+    weight: number;
+    img: string;
 }

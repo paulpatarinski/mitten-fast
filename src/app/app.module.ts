@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { WelcomePage } from '../pages/welcome/welcome';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { WeightRecordService } from './services/weightRecordService';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { IonicStorageModule } from '@ionic/storage';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    WeightRecordService,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }

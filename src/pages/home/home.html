@@ -1,12 +1,12 @@
 <ion-content>
   <div class="title">
-    <h1 *ngIf="selectedRecord">Day {{selectedRecord.dayNum}}</h1>
+    <h1 *ngIf="startDate">Day {{getDaysSinceFastStart(currentlySelectedDate, startDate)}}</h1>
   </div>
 
   <ion-grid>
     <ion-row align-items-center>
       <ion-col col-1>
-        <ion-icon *ngIf="!isOnStartDay()" on-click="navDayBack()" name="arrow-back"></ion-icon>
+        <ion-icon *ngIf="!isOnStartDay()" on-click="navDay(true)" name="arrow-back"></ion-icon>
       </ion-col>
       <ion-col col-10>
         <ion-card>
@@ -16,7 +16,7 @@
             <ion-grid>
               <ion-row>
                 <ion-col align-items-center>
-                  <ion-input class="weight-input" type="text" placeholder="Weight" type="number"></ion-input>
+                  <ion-input class="weight-input" type="text" placeholder="Weight" type="number" [formControl]="weightInputControl" [(ngModel)]="newWeightValue"></ion-input>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -25,7 +25,7 @@
         </ion-card>
       </ion-col>
       <ion-col>
-        <ion-icon *ngIf="!isOnLatestDay()" on-click="navDayForward()" name="arrow-forward"></ion-icon>
+        <ion-icon *ngIf="!isOnLatestDay()" on-click="navDay(false)" name="arrow-forward"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -2,34 +2,55 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import moment from 'moment';
 import { Storage } from '@ionic/storage';
+import { WeightRecord } from '../../app/models/record';
+import { WeightRecordService } from '../../app/services/weightRecordService';
+import { FormControl } from '@angular/forms';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  constructor(public navCtrl: NavController, private storage: Storage) {
+  constructor(public navCtrl: NavController, private storage: Storage, private weightRecordService: WeightRecordService) {
+    this.weightInputControl = new FormControl();
   }
 
+  private currentlySelectedDate: Date;
+
+  weightInputControl: FormControl;
   startDate: Date;
-  currentlySelectedDate: Date;
   selectedRecord: WeightRecord;
+  newWeightValue: number;
 
   ionViewDidLoad() {
     this.currentlySelectedDate = new Date();
 
+    this.weightRecordService.getWeightRecordOrDefault(this.currentlySelectedDate)
+      .then((record) => {
+        this.selectedRecord = record;
+        this.newWeightValue = record.weight;
+      });
+
     this.storage.get('startDate').then((startDate) => {
       this.startDate = startDate;
-      const currentDateMoment = moment(new Date());
-      const startDateMoment = moment(startDate);
-      const daysSinceFastStart = currentDateMoment.diff(startDateMoment, 'days') + 1;
-
-      this.selectedRecord = {
-        date: new Date(),
-        dayNum: daysSinceFastStart,
-        img: null
-      };
     });
+
+    this.weightInputControl.valueChanges.debounceTime(700).subscribe((newWeight) => {
+      if (this.selectedRecord.weight !== newWeight)
+        this.setWeight(this.selectedRecord, newWeight)
+    });
+  }
+
+  private setWeight(existingRecord, newWeight) {
+    this.selectedRecord = { ...existingRecord, weight: newWeight };
+    return this.weightRecordService.insertOrUpdateWeightRecord(this.selectedRecord);
+  }
+
+  getDaysSinceFastStart(currentDate, startDate): number {
+    const currentDateMoment = moment(currentDate);
+    const startDateMoment = moment(startDate);
+    return currentDateMoment.diff(startDateMoment, 'days') + 1;
   }
 
   isOnStartDay() {
@@ -52,11 +73,15 @@ export class HomePage {
     return currentlySelectedDateMoment.diff(todayMoment, 'days') === 0;
   }
 
-  navDayBack() {
-    this.currentlySelectedDate = moment(this.currentlySelectedDate).subtract(1, 'day').toDate();
-  }
+  navDay(back) {
+    const currentlySelectedDateMoment = moment(this.currentlySelectedDate);
+    const newSelectedDate = (back ? currentlySelectedDateMoment.subtract(1, 'day') : currentlySelectedDateMoment.add(1, 'day')).toDate()
 
-  navDayForward() {
-    this.currentlySelectedDate = moment(this.currentlySelectedDate).add(1, 'day').toDate();
+    this.currentlySelectedDate = newSelectedDate;
+
+    return this.weightRecordService.getWeightRecordOrDefault(newSelectedDate).then((record) => {
+      this.selectedRecord = record;
+      this.newWeightValue = record.weight;
+    });
   }
 }
