@@ -7,13 +7,14 @@ import { WeightRecordService } from '../../app/services/weightRecordService';
 import { FormControl } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  constructor(public navCtrl: NavController, private storage: Storage, private weightRecordService: WeightRecordService, private camera: Camera) {
+  constructor(public navCtrl: NavController, private storage: Storage, private weightRecordService: WeightRecordService, private camera: Camera, private androidPermissions: AndroidPermissions) {
     this.weightInputControl = new FormControl();
   }
 
@@ -48,24 +49,33 @@ export class HomePage {
     return this.weightRecordService.insertOrUpdateWeightRecord(this.selectedRecord);
   }
 
+  private verifyHasCameraPermission() {
+    return this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+      result => result.hasPermission,
+      err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
+    );
+  }
+
   takePhoto(existingRecord) {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      saveToPhotoAlbum: true,
-      correctOrientation: true
-    };
+    this.verifyHasCameraPermission().then(() => {
+      const options: CameraOptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        saveToPhotoAlbum: true,
+        correctOrientation: true
+      };
 
-    this.camera.getPicture(options).then((imageData) => {
-      this.selectedRecord = { ...existingRecord, img: imageData };
+      this.camera.getPicture(options).then((imageData) => {
+        this.selectedRecord = { ...existingRecord, img: imageData };
 
-      return this.weightRecordService.insertOrUpdateWeightRecord(this.selectedRecord);
-    }, (err) => {
-      // Handle error
-      console.log('ERROR LOADING IMAGE');
-      console.log(err);
+        return this.weightRecordService.insertOrUpdateWeightRecord(this.selectedRecord);
+      }, (err) => {
+        // Handle error
+        console.log('ERROR LOADING IMAGE');
+        console.log(err);
+      });
     });
   }
 
