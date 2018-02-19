@@ -3,7 +3,7 @@
     <h1 *ngIf="startDate">Day {{getDaysSinceFastStart(currentlySelectedDate, startDate)}}</h1>
   </div>
 
-  <ion-grid (swipeleft)="navBack()" (swiperight)="navForward()">
+  <ion-grid (swipeleft)="navForward()" (swiperight)="navBack()">
     <ion-row align-items-center>
       <ion-col col-1>
         <ion-icon *ngIf="!isOnStartDay()" color="primary" on-click="navBack()" name="arrow-back" class="nav-arrow"></ion-icon>
