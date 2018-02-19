@@ -108,7 +108,21 @@ export class HomePage {
     return currentlySelectedDateMoment.diff(todayMoment, 'days') === 0;
   }
 
-  navDay(back) {
+  navForward() {
+    if (this.isOnLatestDay())
+      return;
+
+    return this.navDay(false);
+  }
+
+  navBack() {
+    if (this.isOnStartDay())
+      return;
+
+    return this.navDay(true);
+  }
+
+  private navDay(back) {
     const currentlySelectedDateMoment = moment(this.currentlySelectedDate);
     const newSelectedDate = (back ? currentlySelectedDateMoment.subtract(1, 'day') : currentlySelectedDateMoment.add(1, 'day')).toDate()
 
