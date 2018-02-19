@@ -12,6 +12,8 @@
     "ionic:serve": "ionic-app-scripts serve --lab",
     "run": "ionic cordova run ios",
     "run:android": "ionic cordova run android --livereload --device",
+    "run:prod": "ionic cordova run ios --prod --device",
+    "run:android:prod": "ionic cordova run android --prod --device",
     "clean:plaforms": "rimraf platforms"
   },
   "dependencies": {

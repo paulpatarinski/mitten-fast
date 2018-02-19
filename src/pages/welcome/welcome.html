@@ -1,10 +1,12 @@
 <ion-content padding>
   <ion-grid>
+
+    <h2 class="title">Intermittent fast Start Date?</h2>
     <ion-row>
       <ion-col>
         <ion-item>
           <ion-label>Date</ion-label>
-          <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="selectedStartDate"></ion-datetime>
+          <ion-datetime displayFormat="DDDD MMM DD, YYYY" [(ngModel)]="selectedStartDate"></ion-datetime>
         </ion-item>
       </ion-col>
     </ion-row>
