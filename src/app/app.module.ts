@@ -10,6 +10,7 @@ import { WelcomePage } from '../pages/welcome/welcome';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { WeightRecordService } from './services/weightRecordService';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { WeightRecordService } from './services/weightRecordService';
     WelcomePage
   ],
   providers: [
+    Camera,
     StatusBar,
     SplashScreen,
     WeightRecordService,

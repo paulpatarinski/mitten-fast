@@ -6,11 +6,11 @@
   <ion-grid>
     <ion-row align-items-center>
       <ion-col col-1>
-        <ion-icon *ngIf="!isOnStartDay()" on-click="navDay(true)" name="arrow-back"></ion-icon>
+        <ion-icon *ngIf="!isOnStartDay()" color="primary" on-click="navDay(true)" name="arrow-back" class="nav-arrow"></ion-icon>
       </ion-col>
       <ion-col col-10>
         <ion-card>
-          <img src="assets/imgs/picture-placeholder.svg" class="img-placeholder">
+          <img on-click="takePhoto()" src="assets/imgs/picture-placeholder.svg" class="img-placeholder">
 
           <ion-card-content>
             <ion-grid>
@@ -25,7 +25,7 @@
         </ion-card>
       </ion-col>
       <ion-col>
-        <ion-icon *ngIf="!isOnLatestDay()" on-click="navDay(false)" name="arrow-forward"></ion-icon>
+        <ion-icon *ngIf="!isOnLatestDay()" color="primary" on-click="navDay(false)" name="arrow-forward" class="nav-arrow"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-grid>
