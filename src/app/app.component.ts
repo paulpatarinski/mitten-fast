@@ -10,13 +10,12 @@ import { HomePage } from '../pages/home/home';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any;
+  rootPage: any;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, storage: Storage) {
     platform.ready().then(() => {
       storage.get('startDate').then((val) => {
         const hasStarted = val != undefined;
-
         //If the fast has started nav to the home page otherwise welcome
         this.rootPage = hasStarted ? HomePage : WelcomePage;
       });
