@@ -10,7 +10,10 @@
       </ion-col>
       <ion-col col-10>
         <ion-card>
-          <img on-click="takePhoto()" src="assets/imgs/picture-placeholder.svg" class="img-placeholder">
+          <div class="weigh-in-img">
+            <img class="placeholder" *ngIf="!selectedRecord || !selectedRecord.img" on-click="takePhoto(selectedRecord)" src="assets/imgs/picture-placeholder.svg">
+            <img *ngIf="selectedRecord && selectedRecord.img" on-click="takePhoto(selectedRecord)" [src]="selectedRecord.img">
+          </div>
 
           <ion-card-content>
             <ion-grid>

@@ -4,11 +4,17 @@ page-home {
         margin-bottom : 20px;
     }
 
-    .img-placeholder {
-        height: 65vh;
-        padding : 10px;
-    }
 
+    .weigh-in-img {
+        img {
+            height: 65vh;
+        }
+
+        .placeholder {
+            padding : 10px;
+        }
+    }
+   
     .nav-arrow {
         height: 100%;
         width: 100%;
